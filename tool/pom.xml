@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.processmining</groupId>
+    <artifactId>service-blueprint</artifactId>
+    <version>1.0.1</version>
+    <packaging>jar</packaging>
+
+    <name>Service Blueprint for ProM</name>
+    <description>ProM 6.13+ plugin para descubrir y visualizar Service Blueprints desde event logs</description>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
+    <!--
+        INSTRUCCIONES DE DEPENDENCIAS:
+        Copia los siguientes JARs desde tu instalación de ProM 6.13 (carpeta lib/) al directorio lib/ de este proyecto:
+          - OpenXES.jar
+          - ProM-Framework.jar
+          - ProM-Contexts.jar
+        Ruta típica de ProM: /path/to/ProM613/lib/
+    -->
+
+    <dependencies>
+        <!-- OpenXES - Estándar XES para logs de eventos -->
+        <dependency>
+            <groupId>org.deckfour</groupId>
+            <artifactId>openxes</artifactId>
+            <version>2.27</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/OpenXES.jar</systemPath>
+        </dependency>
+
+        <!-- ProM Framework - Anotaciones @Plugin, PluginContext -->
+        <dependency>
+            <groupId>org.processmining</groupId>
+            <artifactId>prom-framework</artifactId>
+            <version>6.13</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/ProM-Framework.jar</systemPath>
+        </dependency>
+
+        <!-- ProM Contexts - UITopia, @Visualizer, @UITopiaVariant -->
+        <dependency>
+            <groupId>org.processmining</groupId>
+            <artifactId>prom-contexts</artifactId>
+            <version>6.13</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/ProM-Contexts.jar</systemPath>
+        </dependency>
+
+        <!-- JUnit para tests -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Plugin-Name>ServiceBlueprint</Plugin-Name>
+                            <Plugin-Version>${project.version}</Plugin-Version>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
